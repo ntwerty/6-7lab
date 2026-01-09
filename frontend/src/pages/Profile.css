@@ -1,0 +1,21 @@
+.profile-page {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-info p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.profile-info strong {
+  color: #667eea;
+  margin-right: 10px;
+}
+

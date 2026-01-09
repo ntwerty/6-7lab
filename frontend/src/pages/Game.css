@@ -1,0 +1,140 @@
+.game-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.game-header {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.game-stats {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+.game-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.difficulty-select {
+  padding: 8px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.game-canvas-wrapper {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.game-canvas {
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  display: block;
+}
+
+.game-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.overlay-content {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.overlay-content h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.overlay-content p {
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.game-instructions {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  text-align: center;
+  color: #666;
+}
+
+.game-instructions p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .game-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .game-stats {
+    justify-content: space-around;
+  }
+
+  .game-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .game-controls button,
+  .difficulty-select {
+    width: 100%;
+  }
+
+  .game-canvas {
+    width: 100%;
+    height: auto;
+  }
+}
+
