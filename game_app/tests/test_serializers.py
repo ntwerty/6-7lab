@@ -297,3 +297,4 @@ class ChallengeCreateSerializerTest(TestCase):
         serializer = ChallengeCreateSerializer(data=data)
         self.assertFalse(serializer.is_valid())
 
+

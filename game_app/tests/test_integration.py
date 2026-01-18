@@ -388,3 +388,4 @@ class SystemStateChangesTest(TestCase):
         final_count = UserAchievement.objects.filter(user=self.user).count()
         self.assertGreater(final_count, initial_count)
 
+

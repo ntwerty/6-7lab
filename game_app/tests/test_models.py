@@ -618,3 +618,4 @@ class ChallengeModelTest(TestCase):
             )
             self.assertEqual(challenge.status, status)
 
+

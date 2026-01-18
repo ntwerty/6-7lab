@@ -166,3 +166,4 @@ class AuthorizationTest(TestCase):
         response = self.client.get('/api/achievements/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
