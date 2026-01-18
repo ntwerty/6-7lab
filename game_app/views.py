@@ -97,12 +97,23 @@ class GameSessionViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return GameSessionCreateSerializer
         return GameSessionSerializer
+    
+    def create(self, request, *args, **kwargs):
+        """Переопределяем create для возврата полного объекта."""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        # Возвращаем полный объект через GameSessionSerializer
+        instance = serializer.instance
+        response_serializer = GameSessionSerializer(instance)
+        return Response(response_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        game_session = serializer.save(user=self.request.user)
         # Обновляем профиль пользователя
         profile = self.request.user.profile
-        profile.total_score = max(profile.total_score, serializer.validated_data.get('score', 0))
+        profile.total_score = max(profile.total_score, game_session.score)
         profile.games_played += 1
         profile.save()
         
@@ -110,7 +121,7 @@ class GameSessionViewSet(viewsets.ModelViewSet):
         self._check_achievements(self.request.user, serializer.validated_data)
         
         # Обновляем таблицу лидеров
-        self._update_leaderboard(self.request.user, serializer.instance)
+        self._update_leaderboard(self.request.user, game_session)
 
     @action(detail=False, methods=['get'])
     def latest(self, request):

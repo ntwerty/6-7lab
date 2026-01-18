@@ -137,9 +137,18 @@ class UserProfileModelTest(TestCase):
     def test_bio_max_length(self):
         """Проверка максимальной длины bio."""
         profile = self.user.profile
-        profile.bio = 'a' * 501  # Превышает max_length=500
-        with self.assertRaises(ValidationError):
-            profile.full_clean()
+        # TextField в Django не валидирует max_length автоматически при сохранении
+        # Проверяем через сериализатор или форму
+        from game_app.serializers import UserProfileUpdateSerializer
+        data = {'bio': 'a' * 501}  # Превышает max_length=500
+        serializer = UserProfileUpdateSerializer(profile, data=data, partial=True)
+        # Сериализатор должен валидировать длину
+        self.assertFalse(serializer.is_valid())
+        # Также проверяем, что можно сохранить валидную длину
+        profile.bio = 'a' * 500  # Максимальная длина
+        profile.save()
+        profile.refresh_from_db()
+        self.assertEqual(len(profile.bio), 500)
 
 
 class GameSessionModelTest(TestCase):
@@ -493,6 +502,11 @@ class FriendModelTest(TestCase):
     def test_status_choices(self):
         """Проверка выбора статуса."""
         for status in ['pending', 'accepted', 'rejected']:
+            # Удаляем предыдущую запись, если она существует
+            Friend.objects.filter(
+                from_user=self.user1,
+                to_user=self.user2
+            ).delete()
             friend = Friend.objects.create(
                 from_user=self.user1,
                 to_user=self.user2,

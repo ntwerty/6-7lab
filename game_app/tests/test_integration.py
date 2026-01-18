@@ -196,7 +196,7 @@ class ChallengeCompletionFlowTest(TestCase):
         """Проверка полного цикла завершения вызова."""
         # 1. Проверяем начальное состояние
         self.assertIsNone(self.challenge.challenger_score)
-        self.assertIsNone(self.challenged_score)
+        self.assertIsNone(self.challenge.challenged_score)
         self.assertEqual(self.challenge.status, 'accepted')
         
         # 2. Отправляем счет от первого игрока
@@ -258,6 +258,7 @@ class DataPersistenceTest(TestCase):
             'level': 2
         }
         response = self.client.post('/api/game-sessions/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         session_id = response.data['id']
         
         # Проверяем, что данные сохранены

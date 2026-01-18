@@ -3,7 +3,7 @@
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from rest_framework.exceptions import ValidationError
+from rest_framework import serializers
 from game_app.serializers import (
     RegisterSerializer, UserProfileSerializer, UserProfileUpdateSerializer,
     GameSessionSerializer, GameSessionCreateSerializer,

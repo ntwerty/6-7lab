@@ -88,9 +88,10 @@ class GameSessionCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = GameSession
         fields = [
-            'game_state', 'score', 'level', 'time_played',
+            'id', 'game_state', 'score', 'level', 'time_played',
             'is_completed', 'difficulty'
         ]
+        read_only_fields = ['id']
 
 
 class LeaderboardSerializer(serializers.ModelSerializer):
